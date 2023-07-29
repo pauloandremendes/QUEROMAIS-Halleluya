@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Sheet } from 'src/app/cadastro/sheet.model';
 import { SheetService } from 'src/app/cadastro/sheet.service';
@@ -25,11 +25,11 @@ export class CadastroComponent implements OnInit {
     private router: Router
   ) {
     this.googleSheetForm = this.formBuilder.group({
-      name: formBuilder.control(localStorage.getItem(this.localStorageKey + '_name') || ''),
-      sobrenome: formBuilder.control(localStorage.getItem(this.localStorageKey + '_sobrenome') || ''),
-      datanasci: formBuilder.control(localStorage.getItem(this.localStorageKey + '_datanasci') || ''),
-      telefone: formBuilder.control(localStorage.getItem(this.localStorageKey + '_telefone') || ''),
-      local: formBuilder.control(localStorage.getItem(this.localStorageKey + '_local') || ''),
+      name: [localStorage.getItem(this.localStorageKey + '_name') || '', Validators.required],
+      sobrenome: [localStorage.getItem(this.localStorageKey + '_sobrenome') || '', Validators.required],
+      datanasci: [localStorage.getItem(this.localStorageKey + '_datanasci') || '', Validators.required],
+      telefone: [localStorage.getItem(this.localStorageKey + '_telefone') || '', Validators.required],
+      local: [localStorage.getItem(this.localStorageKey + '_local') || '', Validators.required],
     });
 
     window.addEventListener('online', () => {
@@ -61,7 +61,23 @@ export class CadastroComponent implements OnInit {
   }
   }
 
+  private markAllFieldsAsTouched(formGroup: FormGroup) {
+    Object.values(formGroup.controls).forEach(control => {
+      if (control instanceof FormGroup) {
+        this.markAllFieldsAsTouched(control);
+      } else {
+        control.markAsTouched();
+      }
+    });
+  }
+
   public onSubmit() {
+
+    if (this.googleSheetForm.invalid) {
+      this.markAllFieldsAsTouched(this.googleSheetForm); // Marca os campos inválidos como "touched" para mostrar as mensagens de erro
+      return;
+    }
+
     const name = this.googleSheetForm.value.name;
     const sobrenome = this.googleSheetForm.value.sobrenome;
     const datanasci = this.googleSheetForm.value.datanasci;

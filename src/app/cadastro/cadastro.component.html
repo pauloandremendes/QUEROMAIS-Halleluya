@@ -20,23 +20,35 @@
 
         <div class="col-md-5 mb-4">
           <label for="name" class="form-label small" style="color: rgb(41, 41, 39);">Nome</label>
-          <input type="text" class="form-control" id="name" formControlName="name" required>
+          <input type="text" class="form-control" id="name" formControlName="name">
+          <div *ngIf="googleSheetForm.get('name')!.invalid && googleSheetForm.get('name')!.touched" class="text-danger">
+            <div *ngIf="googleSheetForm.get('name')!.hasError('required')">Nome é obrigatório.</div>
+          </div>
         </div>
     
         <div class="col-md-5 mb-4">
           <label for="sobrenome" class="form-label small" style="color: rgb(41, 41, 39);">Sobrenome</label>
-          <input type="text" class="form-control" id="sobrenome" formControlName="sobrenome" required>
+          <input type="text" class="form-control" id="sobrenome" formControlName="sobrenome">
+          <div *ngIf="googleSheetForm.get('sobrenome')!.invalid && googleSheetForm.get('sobrenome')!.touched" class="text-danger">
+            <div *ngIf="googleSheetForm.get('sobrenome')!.hasError('required')">Sobrenome é obrigatório.</div>
+          </div>
         </div>
     
         <div class="col-md-5 mb-4">
           <label for="datanasci" class="form-label small" style="color: rgb(41, 41, 39);">Data de Nascimento</label>
           <input type="date" class="form-control" id="datanasci" formControlName="datanasci"
-            bsDatepicker required>
+            bsDatepicker>
+          <div *ngIf="googleSheetForm.get('datanasci')!.invalid && googleSheetForm.get('datanasci')!.touched" class="text-danger">
+            <div *ngIf="googleSheetForm.get('datanasci')!.hasError('required')">Data de nascimento é obrigatória.</div>
+          </div>
         </div>
     
         <div class="col-md-5 mb-4">
           <label for="telefone" class="form-label small" style="color: rgb(41, 41, 39);">Telefone</label>
-          <input type="text" class="form-control" id="telefone" formControlName="telefone" required>
+          <input type="text" class="form-control" id="telefone" formControlName="telefone">
+          <div *ngIf="googleSheetForm.get('telefone')!.invalid && googleSheetForm.get('telefone')!.touched" class="text-danger">
+            <div *ngIf="googleSheetForm.get('telefone')!.hasError('required')">Telefone é obrigatório.</div>
+          </div>
         </div>
     
         <div class="col-md-5 mb-4">
@@ -44,6 +56,9 @@
           <select class="form-select" id="local" formControlName="local">
             <option *ngFor="let local of locais" [value]="local">{{ local }}</option>
           </select>
+          <div *ngIf="googleSheetForm.get('local')!.invalid && googleSheetForm.get('local')!.touched" class="text-danger">
+            <div *ngIf="googleSheetForm.get('local')!.hasError('required')">Local é obrigatório.</div>
+          </div>
         </div>
 
         <div class="alert alert-success mt-3 position-fixed top-0 start-50 translate-middle-x" style="z-index: 9999;" *ngIf="showMessage">
