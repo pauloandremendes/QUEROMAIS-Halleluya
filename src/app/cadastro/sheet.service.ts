@@ -15,7 +15,8 @@ export class SheetService {
     sobrenome: string,
     datanasci: string,
     telefone: string,
-    local: string
+    local: string,
+    espacoEvangelizacao: string,
   ): Observable<Sheet> {
     return this.http.post<Sheet>(`${environment.CONNECTION_URL}`, {
         name,
@@ -23,6 +24,7 @@ export class SheetService {
         datanasci,
         telefone,
         local,
+        espacoEvangelizacao,
     });
   }
 
