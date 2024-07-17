@@ -61,6 +61,16 @@
           </div>
         </div>
 
+        <div class="col-md-5 mb-4">
+          <label for="espacoEvangelizacao" class="form-label small" style="color: rgb(41, 41, 39);">Espaço que realizou a evangelização</label>
+          <select class="form-select" id="espacoEvangelizacao" formControlName="espacoEvangelizacao">
+            <option *ngFor="let espacoEvangelizacao of espacoEvangelizacoes" [value]="espacoEvangelizacao">{{ espacoEvangelizacao }}</option>
+          </select>
+          <div *ngIf="googleSheetForm.get('espacoEvangelizacao')!.invalid && googleSheetForm.get('espacoEvangelizacao')!.touched" class="text-danger">
+            <div *ngIf="googleSheetForm.get('espacoEvangelizacao')!.hasError('required')">Espaço evangelização é obrigatório.</div>
+          </div>
+        </div>
+
         <div class="alert alert-success mt-3 position-fixed top-0 start-50 translate-middle-x" style="z-index: 9999;" *ngIf="showMessage">
           Dados salvos!
         </div>

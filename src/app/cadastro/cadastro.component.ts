@@ -30,6 +30,7 @@ export class CadastroComponent implements OnInit {
       datanasci: [localStorage.getItem(this.localStorageKey + '_datanasci') || '', Validators.required],
       telefone: [localStorage.getItem(this.localStorageKey + '_telefone') || '', Validators.required],
       local: [localStorage.getItem(this.localStorageKey + '_local') || '', Validators.required],
+      espacoEvangelizacao: [localStorage.getItem(this.localStorageKey + '_espacoEvangelizacao') || '', Validators.required],
     });
 
     window.addEventListener('online', () => {
@@ -83,9 +84,10 @@ export class CadastroComponent implements OnInit {
     const datanasci = this.googleSheetForm.value.datanasci;
     const telefone = this.googleSheetForm.value.telefone;
     const local = this.googleSheetForm.value.local;
+    const espacoEvangelizacao = this.googleSheetForm.value.espacoEvangelizacao;
   
     if (navigator.onLine) {
-      this.service.createSheet(name, sobrenome, datanasci, telefone, local).subscribe({
+      this.service.createSheet(name, sobrenome, datanasci, telefone, local, espacoEvangelizacao).subscribe({
         next: (res) => {
           console.log(res);
           if (res) {
@@ -112,6 +114,7 @@ export class CadastroComponent implements OnInit {
         datanasci,
         telefone,
         local,
+        espacoEvangelizacao,
         dataSent: false, // Definir a propriedade dataSent para false antes de salvar no Local Storage
       };
       // Verificar se já existem registros no Local Storage
@@ -141,9 +144,10 @@ export class CadastroComponent implements OnInit {
       const datanasci = formData.datanasci;
       const telefone = formData.telefone;
       const local = formData.local;
+      const espacoEvangelizacao = formData.espacoEvangelizacao;
 
       // Enviar os dados para a planilha
-      this.service.createSheet(name, sobrenome, datanasci, telefone, local).subscribe({
+      this.service.createSheet(name, sobrenome, datanasci, telefone, local, espacoEvangelizacao).subscribe({
         next: (res) => {
           console.log(res);
           if (res) {
@@ -177,4 +181,6 @@ export class CadastroComponent implements OnInit {
     'CARMO','CASTELÃO', 'CAUCAIA', 'CIDADE DOS FUNCIONÁRIOS','CONJUNTO CEARÁ','CRISTO REDENTOR','COCÓ','ESTRADA DO FIO','EUSÉBIO','FÁTIMA', 'GENIBAÚ', 'HORIZONTE','IPARANA', 'JARDIM GUANABARA','MARACANAÚ','MARANGUAPE','MESSEJANA','MONDUBIM','PACAJUS','PARANGABA','PARQUELÂNDIA','PASSARÉ',
     'ALDEOTA','PECÉM', 'PEDRAS', 'PINDORETAMA','PRAIA DO FUTURO','QUINTINO CUNHA','REDENÇÃO','SÃO GONÇALO','SERRINHA', 'ELLERY', 'OUTROS' 
   ];
+
+  espacoEvangelizacoes: string[] = ['Adventure', 'Bazar e Praça de Alimentação 2', 'Camping', 'Entradas', 'Cultural e praça de alimentação 1', 'Misericódia e praça de alimentação 3', 'ExpoHalleluya+Bazar', 'Food Truck + Hemoce', 'PCD', 'Pirulitus', 'Stand Quero +', 'Tenda de evangelização', 'Evangelização artística', 'Tuor'];
 }

@@ -4,4 +4,5 @@ export interface Sheet {
     datanasci: string;
     telefone: string;
     local: string;
+    espacoEvangelizacao: string;
   }
