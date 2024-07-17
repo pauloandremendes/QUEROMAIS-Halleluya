@@ -1,0 +1,75 @@
+  <div class="container-fluid d-flex justify-content-center">
+    <img class="img-fluid mt-5" src="./../../assets/quero mais preto.png" style="max-width: 200px; max-height: 200px;">
+  </div>  
+
+  <div class="mt-5 mb-3 d-flex flex-column align-items-center px-5">
+    <h1 style="color: rgb(41, 41, 39);" class="custom-title-1">HALLELUYA QUERO MAIS</h1>
+    
+    <p style="color: rgb(41, 41, 39);" class="ml-1 mr-5">Viva uma experiência transformadora, viva a festa que nunca acaba na sua vida, participe de um encontro que vai encher o seu coração de alegria e esperança. Aqui você poderá se inscrever e viver de forma ainda mais profunda a experiência do nosso festival, através do QUERO MAIS.</p>
+    <p style="color: rgb(41, 41, 39);" class="ml-2 mr-2">Venha participar desse encontro nos dias 29 e 30 de julho no Shalom mais perto de você!</p>
+  </div>
+
+  <div class="container  mt-5 pt-3 pb-3">
+    <form [formGroup]="googleSheetForm" (ngSubmit)="onSubmit()">
+
+      <div class="row justify-content-center">
+
+        <div class="col-md-10 text-center">
+          <h2 style="color: rgb(41, 41, 39);"  class="custom-title-2">VENHA PARTICIPAR DESSE ENCONTRO</h2>
+        </div>
+
+        <div class="col-md-5 mb-4">
+          <label for="name" class="form-label small" style="color: rgb(41, 41, 39);">Nome</label>
+          <input type="text" class="form-control" id="name" formControlName="name">
+          <div *ngIf="googleSheetForm.get('name')!.invalid && googleSheetForm.get('name')!.touched" class="text-danger">
+            <div *ngIf="googleSheetForm.get('name')!.hasError('required')">Nome é obrigatório.</div>
+          </div>
+        </div>
+    
+        <div class="col-md-5 mb-4">
+          <label for="sobrenome" class="form-label small" style="color: rgb(41, 41, 39);">Sobrenome</label>
+          <input type="text" class="form-control" id="sobrenome" formControlName="sobrenome">
+          <div *ngIf="googleSheetForm.get('sobrenome')!.invalid && googleSheetForm.get('sobrenome')!.touched" class="text-danger">
+            <div *ngIf="googleSheetForm.get('sobrenome')!.hasError('required')">Sobrenome é obrigatório.</div>
+          </div>
+        </div>
+    
+        <div class="col-md-5 mb-4">
+          <label for="datanasci" class="form-label small" style="color: rgb(41, 41, 39);">Data de Nascimento</label>
+          <input type="date" class="form-control" id="datanasci" formControlName="datanasci"
+            bsDatepicker>
+          <div *ngIf="googleSheetForm.get('datanasci')!.invalid && googleSheetForm.get('datanasci')!.touched" class="text-danger">
+            <div *ngIf="googleSheetForm.get('datanasci')!.hasError('required')">Data de nascimento é obrigatória.</div>
+          </div>
+        </div>
+    
+        <div class="col-md-5 mb-4">
+          <label for="telefone" class="form-label small" style="color: rgb(41, 41, 39);">Telefone</label>
+          <input type="text" class="form-control" id="telefone" formControlName="telefone">
+          <div *ngIf="googleSheetForm.get('telefone')!.invalid && googleSheetForm.get('telefone')!.touched" class="text-danger">
+            <div *ngIf="googleSheetForm.get('telefone')!.hasError('required')">Telefone é obrigatório.</div>
+          </div>
+        </div>
+    
+        <div class="col-md-5 mb-4">
+          <label for="local" class="form-label small" style="color: rgb(41, 41, 39);">Local</label>
+          <select class="form-select" id="local" formControlName="local">
+            <option *ngFor="let local of locais" [value]="local">{{ local }}</option>
+          </select>
+          <div *ngIf="googleSheetForm.get('local')!.invalid && googleSheetForm.get('local')!.touched" class="text-danger">
+            <div *ngIf="googleSheetForm.get('local')!.hasError('required')">Local é obrigatório.</div>
+          </div>
+        </div>
+
+        <div class="alert alert-success mt-3 position-fixed top-0 start-50 translate-middle-x" style="z-index: 9999;" *ngIf="showMessage">
+          Dados salvos!
+        </div>
+
+        <div class="col-md-10 text-center"> <!-- Coluna para o botão, adicionando a classe "text-center" para centralizá-lo -->
+          <button class="btn btn-secondary mt-3" style="width: 200px;" (click)="onSubmit()">OK</button>
+        </div>
+
+      </div>
+  
+    </form>
+  </div>
